@@ -43,9 +43,15 @@ We will be using [Anserini](https://github.com/castorini/anserini) to index our 
 First, download and extract the corpus.
 
 ```bash
-$ cd /path/to/anserini
-$ curl https://ai2-semanticscholar-cord-19.s3-us-west-2.amazonaws.com/historical_releases/cord-19_2020-10-09.tar.gz -o collections/cord19-2020-10-09.tar.gz
-$ pushd collections && tar -zxvf cord19-2020-10-09.tar.gz && rm cord19-2020-10-09.tar.gz && popd
+
+$ DATE=2020-10-09
+
+$ wget https://ai2-semanticscholar-cord-19.s3-us-west-2.amazonaws.com/historical_releases/cord-19_"${DATE}".tar.gz
+
+$ tar xvfz cord-19_"${DATE}".tar.gz -C collections
+$ tar xvfz collections/"${DATE}"/document_parses.tar.gz -C collections/"${DATE}"
+$ mv collections/"${DATE}" collections/cord19-"${DATE}"
+
 ```
 
 Now we will build the Lucene index.
